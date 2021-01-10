@@ -25,6 +25,11 @@ typedef enum
     BLE_NUS_MSG_EVT_MESSAGE       /**< Message received. */
 } ble_nus_msg_evt_type_t;
 
+typedef struct  ble_nus_msg_feature_s
+{
+    uint8_t     feature;
+}               ble_nus_msg_feature_t;
+
 typedef struct  ble_nus_msg_packet_s
 {
     uint8_t     feature;
@@ -46,9 +51,11 @@ typedef struct  ble_nus_msg_evt_s
 
 typedef void (* ble_nus_msg_handler_t) (ble_nus_msg_evt_t * p_evt);
 typedef void (* ble_nus_msg_packet_handler_t) (ble_nus_msg_packet_t * p_evt);
+typedef void (* ble_nus_send_handler_t) (uint8_t * p_data, uint16_t data_len);
 
 typedef struct  ble_nus_msg_s
 {
+    ble_nus_send_handler_t          send_handler;
     ble_nus_msg_buffer_t            evt_buffer;
     ble_nus_msg_handler_t           msg_handler;    /**< Application event handler to be called when there is an event related to the NUS. */
     ble_nus_msg_packet_handler_t    packet_handler;  /**< Function to be called in case of an error. */
@@ -56,6 +63,7 @@ typedef struct  ble_nus_msg_s
 
 typedef struct
 {
+    ble_nus_send_handler_t        send_handler;
     ble_nus_msg_handler_t         evt_handler;    /**< Application event handler to be called when there is an event related to the NUS. */
     ble_nus_msg_packet_handler_t  evt_packet_handler;    /**< Application event handler to be called when there is an event related to the NUS. */
 } ble_nus_msg_init_t;
@@ -63,9 +71,7 @@ typedef struct
 static void ble_nus_msg_handle(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_data, uint16_t data_len);
 static void ble_nus_msg_handle_buffer(ble_nus_msg_t *p_ble_nus_msg, uint8_t const * p_data, uint16_t data_len);
 
-uint32_t ble_nus_msg_send(ble_nus_t *p_ble_nus, uint8_t * p_data, uint16_t data_len);
-uint32_t ble_nus_msg_c_send(ble_nus_c_t *p_ble_nus_c, uint8_t * p_data, uint16_t data_len);
-
+void ble_nus_msg_data_send(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_string, uint16_t length);
 void ble_nus_msg_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_evt_t * p_evt);
 void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t * p_evt);
 void ble_nus_msg_flush(ble_nus_msg_t *p_ble_nus_msg);
