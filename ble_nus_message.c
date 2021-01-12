@@ -48,9 +48,8 @@ void ble_nus_msg_data_send(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_string, uin
 
 static void ble_nus_msg_handle(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_data, uint16_t data_len)
 {
-    uint8_t feature;
+    uint8_t feature = 0;
     uint8_t content_offset = BLE_NUS_MESSAGE_PACKET_HEADER_LEN;
-    uint8_t content_len = data_len - 1;
 
     NRF_LOG_INFO("Processing now content (len=%d)", data_len);
     if (data_len >= BLE_NUS_MESSAGE_PACKET_HEADER_LEN)
@@ -87,9 +86,8 @@ static void ble_nus_msg_copy_buffer(ble_nus_msg_t *p_ble_nus_msg, uint8_t const 
 
 static void ble_nus_msg_handle_buffer(ble_nus_msg_t *p_ble_nus_msg, uint8_t const * p_data, uint16_t data_len)
 {
-    uint8_t feature;
+    uint8_t feature = 0;
     uint8_t content_offset = BLE_NUS_MESSAGE_PACKET_HEADER_LEN;
-    uint8_t content_len = data_len - 1;
 
     NRF_LOG_INFO("Processing now content (len=%d)", data_len);
     if (data_len >= BLE_NUS_MESSAGE_PACKET_HEADER_LEN)
@@ -114,8 +112,6 @@ void ble_nus_msg_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_evt_t *p_evt
 {
     if (p_evt->type == BLE_NUS_EVT_RX_DATA)
     {
-        uint32_t err_code;
-
         NRF_LOG_DEBUG("Received buffered data from BLE NUS MSG.");
         ble_nus_msg_handle_buffer(p_ble_nus_msg, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 
@@ -126,8 +122,6 @@ void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t co
 {
     if (p_evt->evt_type == BLE_NUS_C_EVT_NUS_TX_EVT)
     {
-        uint32_t err_code;
-
         NRF_LOG_DEBUG("Received data from BLE NUS MSG.");
         ble_nus_msg_handle(p_ble_nus_msg, p_evt->p_data, p_evt->data_len);
     }
