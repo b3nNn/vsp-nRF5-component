@@ -122,7 +122,7 @@ void ble_nus_msg_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_evt_t *p_evt
     }
 }
 
-void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t *p_evt)
+void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t const *p_evt)
 {
     if (p_evt->evt_type == BLE_NUS_C_EVT_NUS_TX_EVT)
     {

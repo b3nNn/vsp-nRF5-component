@@ -68,12 +68,12 @@ typedef struct
     ble_nus_msg_packet_handler_t  evt_packet_handler;    /**< Application event handler to be called when there is an event related to the NUS. */
 } ble_nus_msg_init_t;
 
-static void ble_nus_msg_handle(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_data, uint16_t data_len);
-static void ble_nus_msg_handle_buffer(ble_nus_msg_t *p_ble_nus_msg, uint8_t const * p_data, uint16_t data_len);
+// static void ble_nus_msg_handle(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_data, uint16_t data_len);
+// static void ble_nus_msg_handle_buffer(ble_nus_msg_t *p_ble_nus_msg, uint8_t const * p_data, uint16_t data_len);
 
 void ble_nus_msg_data_send(ble_nus_msg_t *p_ble_nus_msg, uint8_t * p_string, uint16_t length);
 void ble_nus_msg_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_evt_t * p_evt);
-void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t * p_evt);
+void ble_nus_msg_c_data_handler(ble_nus_msg_t *p_ble_nus_msg, ble_nus_c_evt_t const * p_evt);
 void ble_nus_msg_flush(ble_nus_msg_t *p_ble_nus_msg);
 void ble_nus_msg_init(ble_nus_msg_t *p_ble_nus_msg, ble_nus_msg_init_t *p_ble_nus_msg_init);
 
